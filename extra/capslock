@@ -1,0 +1,5 @@
+#!/bin/sh
+[ -f /dev/shm/capslock ] && xdotool key Caps_Lock && rm -f /dev/shm/capslock && exit;
+touch /dev/shm/capslock
+sleep 0.5
+rm /dev/shm/capslock

@@ -1,0 +1,6 @@
+#!/bin/bash 
+
+sleep 0.1; export status=$(xset q |grep "Caps" | awk '{print $4}')
+
+notify-send "Capslock" "Capslock was turned $status"
+
