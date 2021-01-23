@@ -1,0 +1,4 @@
+[module/caps]
+type = custom/script
+exec = /home/viriv/extra/capsstatbar.sh
+interval = 0.5

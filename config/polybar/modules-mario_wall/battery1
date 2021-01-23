@@ -1,0 +1,5 @@
+[module/battery1]
+type = custom/script
+#exec = ~/test4.sh
+#interval = 10
+#label-foreground = ${colors.cha} 

@@ -1,0 +1,51 @@
+#! /bin/sh
+
+sxhkd &
+
+#background
+feh --bg-tile /home/viriv/Pictures/Wallpapers/wifi-blocky-reduce.webp &
+
+bspc monitor -d "1 " "2 " "3 " "4 " "5 " "6 " "7 " "8 " "9 " "10 "
+
+bspc config border_width         2
+bspc config window_gap          5
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp desktop='^8' follow=on
+bspc rule -a spotify desktop='^4'
+bspc rule -a discord-canary='^3'
+bspc rule -a Screenkey manage=off
+
+#compositor
+#picom &
+
+#redshift
+killall redshift && sleep 4s; redshift &
+
+#natural scrolling/disable while typing/tap to click
+#xinput set-prop 11 316 1 &
+#xinput set-prop 11 310 0 &
+#xinput set-prop 11 300 1 &
+
+#border colors
+bspc config normal_border_color \#31313D &
+
+bspc config focused_border_color \#5B5B86 &
+
+#dunst notifications
+dunst &
+
+#battery notification 
+sh /home/viriv/extra/battery-loop.sh &
+
+#dead keys
+setxkbmap -layout us -variant intl
+
+#polybar 
+polybar main &
+
+#window swallowing
+pgrep -fl 'pidswallow -gl' || pidswallow -gl &

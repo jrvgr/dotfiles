@@ -1,0 +1,6 @@
+[module/updates-pacman]
+type = custom/script
+exec = ~/.config/polybar/scripts/updates-pacman.sh
+interval = 3600
+label-foreground = ${colors.bac}
+label = %{A1:yay -Sy&:}%output% %{A} 

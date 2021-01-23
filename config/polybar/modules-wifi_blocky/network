@@ -1,0 +1,19 @@
+[module/network]
+type = internal/network
+interface = wlp3s0
+
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+format-packetloss = <label-packetloss>
+
+label-connected = %{A1:python /home/viriv/.config/polybar/scripts/networkmanager-dmenu/networkmanager_dmenu.py&:}%essid%  %{A}
+label-connected-foreground = ${colors.con}
+
+label-disconnected = %{A1:python /home/viriv/.config/polybar/scripts/networkmanager-dmenu/networkmanager_dmenu.py&:}no wifi  %{A}
+label-disconnected-foreground = ${colors.accent}
+
+label-packetloss = %{A1:python /home/viriv/.config/polybar/scripts/networkmanager-dmenu/networkmanager_dmenu.py&:}//%essid%\\  %{A}
+label-packetloss-foreground = ${colors.con}
+
+click-left = python /home/viriv/.config/polybar/scripts/networkmanager-dmenu/networkmanager_dmenu.py
+click-right = rofi-bluetooth &

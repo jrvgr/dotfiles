@@ -1,0 +1,16 @@
+[colors]
+background = #0e0a2e
+background-alt = #424354
+foreground = #cdcdcd
+foreground-alt = #6c6d96
+accent = #0057ed
+open = #767689
+focused = #4f4f64
+backalt = #4d4d5e
+white = #fffff
+dis = #e58463
+cha = #e5d363
+bac = #7982e5
+aud = #ec88e6
+con = #80cda4
+upd = #126cbd

@@ -1,0 +1,101 @@
+# Reload functions
+super + alt + {Escape, r}
+	bspc {quit,wm -r}
+
+# Volume up, down and mute
+XF86AudioLowerVolume
+	pamixer -d 3 --allow-boost
+
+XF86AudioRaiseVolume
+	pamixer -i 3 --allow-boost
+
+XF86AudioMute
+	pamixer -t --allow-boost
+
+#backlight
+XF86MonBrightnessUp
+	light -A 5 & sh /home/viriv/xob/backlight.sh
+
+XF86MonBrightnessDown
+	light -U 5 & sh /home/viriv/xob/backlight.sh
+
+#toggle between tiled and monocle mode
+super + m
+    bspc desktop -l next
+
+#close/kill window
+super + {_,shift + }q
+	bspc node -{c,k}
+
+#vdesktop switching 
+super + {1,2,3,4,5,6,7,8,9,0}
+	bspc desktop -f '^{1-9,10}'
+
+# Send to desktop
+super + shift + {1-9,0}
+	bspc node -d '^{1-9,10}' --follow
+
+#reload sxhkd config
+alt + r
+	pkill -USR1 -x sxhkd
+
+super + Return
+	kitty
+
+super + space
+	dmenu_run
+
+Print
+	flameshot gui
+
+last node/workspace
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+
+super + alt + o
+	/home/viriv/rofi-wifi-menu/rofi-wifi-menu.sh
+
+tab + alt + s  
+	flameshot gui
+
+super + shift + l
+	betterlockscreen --lock
+
+super + s 
+	/home/viriv/test.sh
+
+#media keys
+XF86AudioPlay
+	playerctl play-pause
+
+XF86AudioNext
+	playerctl next
+
+XF86AudioPrev
+	playerctl previous
+
+#resizing
+super + alt + {Left,Down,Up,Right}
+	/home/viriv/extra/resize {west,south,north,east}
+
+# focus and rearange with keybinds 
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+	
+super + u
+	killall polybar && sleep 2s; polybar main
+	
+super + c
+	chromium
+	
+#vdesktop switching
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+#monitor switching
+super + shift + {comma,period}
+    bspc node --to-monitor {prev,next}
+
+Caps_Lock
+    /home/viriv/extra/capsstat.sh

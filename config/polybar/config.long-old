@@ -1,0 +1,217 @@
+[colors]
+background = #39394a 
+background-alt = #424354
+foreground = #6c6d96
+foreground-alt = #6c6d96
+accent = #cb4e58
+open = #767689
+focused = #4f4f64
+backalt = #4d4d5e
+white = #fffff
+dis = #e58463
+cha = #e5d363
+bac = #7982e5
+aud = #ec88e6
+con = #80cda4
+upd = #126cbd
+
+[bar/main]
+width = 100%
+height = 22
+fixed-center = true
+offset-x = 0
+offset-y = 0
+wm-restack = bspwm
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+tray-position = right 
+tray-detached = false
+tray-background = ${colors.backalt}
+tray-padding = 0
+tray-margin = 1
+
+modules-left = bspwm caps 
+modules-center = date time 
+modules-right = updates-pacman pulseaudio backlight battery blue network
+module-margin = 1
+
+#============================================================#
+
+[module/bspwm]
+type = internal/bspwm
+
+pin-workspaces = true
+inline-mode = true
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+ 
+label-focused-foreground = ${colors.accent} 
+label-focused-background = ${colors.focused}
+label-focused-padding = 2
+ 
+label-occupied-foreground = ${colors.foreground}
+label-occupied-background = ${colors.background-alt}
+label-occupied-padding = 1
+ 
+label-empty-foreground = ${colors.focused}
+label-empty-padding = 1
+ 
+format = <label-state>
+format-padding = 0
+
+#============================================================#
+
+[module/date]
+type = internal/date
+
+# Seconds to sleep between updates
+# Default: 1.0
+interval = 1.0
+
+# See "https://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+# NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %H:%M:%S
+
+# Optional time format
+time = %H:%M
+
+# if `date-alt` or `time-alt` is defined, clicking
+# the module will toggle between formats
+date-alt = %A, %d %B %Y
+time-alt = %H:%M:%S
+
+#============================================================#
+
+[module/battery]
+type = internal/battery
+
+time-format = %H:%M
+
+# This is useful in case the battery never reports 100% charge
+full-at = 99
+
+# Use the following command to list batteries and adapters:
+# $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = ADP1
+
+poll-interval = 2
+
+label-open-padding = 2
+
+format-charging = <label-charging>
+label-charging = %{A1:gnome-terminal -- acpi -i && sleep 5000# echo "" &:}+%percentage%% %time%%{A}
+
+format-discharging = <label-discharging>
+label-discharging = %{A1:gnome-terminal -- acpi -i && sleep 5000# echo "" &:}%percentage%% %time%%{A}
+
+format-background = ${colors.backalt} 
+format-charging-foreground = ${colors.cha}
+format-discharging-foreground = ${colors.cha}
+
+click-left = gnome-terminal -- acpi -i
+
+#============================================================#
+
+[module/backlight]
+type = internal/backlight
+
+# Use the following command to list available cards:
+# $ ls -1 /sys/class/backlight/
+card = intel_backlight
+enable-scroll = true
+label-foreground = ${colors.bac}
+
+#============================================================#
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+# Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+# If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+# Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+# Default: true
+use-ui-max = true
+
+# Interval for volume increase/decrease (in percent points)
+# Default: 5
+interval = 5
+label-muted = muted
+label-muted-foreground = ${colors.aud}
+format-volume-foreground = ${colors.aud}
+
+#============================================================#
+
+[module/network]
+type = internal/network
+interface = wlp3s0
+
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+format-packetloss = <label-packetloss>
+
+label-connected = %{A1:python /home/viriv/.config/networkmanager-dmenu/networkmanager_dmenu.py&:}%essid%  %{A}
+label-connected-foreground = ${colors.con}
+
+label-disconnected = %{A1:python /home/viriv/.config/networkmanager-dmenu/networkmanager_dmenu.py&:}no wifi  %{A}
+label-disconnected-foreground = ${colors.accent}
+
+label-packetloss = %{A1:python /home/viriv/.config/networkmanager-dmenu/networkmanager_dmenu.py&:}//%essid%\\  %{A}
+label-packetloss-foreground = ${colors.con}
+
+click-left = python /home/viriv/.config/networkmanager-dmenu/networkmanager_dmenu.py
+click-right = rofi-bluetooth & 
+
+#============================================================#
+
+[module/updates-pacman]
+type = custom/script
+exec = ~/.config/polybar/scripts/updates-pacman.sh
+interval = 3600
+label-foreground = ${colors.bac}
+label = %{A1:yay -Sy&:}%output% %{A} 
+
+#============================================================#
+
+[module/title]
+type = internal/xwindow
+
+format = <label>
+format-background = ${colors.backalt}
+format-foreground = ${colors.foreground}
+format-padding = 4
+
+label-maxlen = 50
+
+label-empty = No window
+label-empty-foreground = ${colors.accent}
+
+#============================================================#
+
+[module/battery1]
+type = custom/script
+#exec = ~/test4.sh
+#interval = 10
+#label-foreground = ${colors.cha} 
+
+#============================================================#
+
+[module/blue]
+type = custom/script
+exec = rofi-bluetooth --status
+interval = 2
+click-left = rofi-bluetooth &
+
+#============================================================#
+
+[module/caps]
+type = custom/script
+exec = /home/viriv/extra/capsstatbar.sh
+interval = 0.5
+
